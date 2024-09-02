@@ -1,0 +1,73 @@
+# Section 1: INTRODUCTION
+
+# Section 2: DJANGO RECAP FOR BEGINNERS
+
+# Section 3: GETTING READY TO BUILD COMPLEX MULTI VENDOR MARKETPLACE PROJECT
+    7-> git bash/vs code installation
+    8-> creating virtual environment - python --m venv env
+    9-> install django and start project
+    12-> github setup
+    14-> templates setup - create template folder> include folder name in settings.py
+    15-> create superuser - python manage.py createsuperuser
+
+# Section 4: PURCHASE AND IMPLEMENT TEMPLATE
+  18-> static files config: STATIC_URL = 'static/'
+                            STATIC_ROOT = BASE_DIR/'static'
+                            STATICFILES_DIRS = ["foodOnline_main/static"]
+
+  19-> collectstatic: Used to collect all static files in one place.
+                      python manage.py collectstatic
+
+
+# Section 5: POSTGRE SQL DATABASE CONFIGURATION
+  20-> start pg admin > create a database
+  21-> configuration with django - 
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': config('DB_NAME'),
+                'USER': config('DB_USER'),
+                'PASSWORD': config('DB_PASSWORD'),
+                'HOST': config('DB_HOST'),
+            }
+        }
+  22-> from decouple import config
+ 
+# Section 6: CUSTOM USER MODEL, MEDIA FILES AND DJANGO SIGNALS
+  23-> custom user model -
+        user model (AbstractBaseUser)
+        user manager (BaseUserManager)
+         1. create user function
+         2. create superuser function(using create user function)
+  
+  24-> recreate table and register usr model
+  25-> make pasword non editable
+  27-> create user profile model(models.Model) , use one to one field on user class
+
+  28-> media files configuration-
+       MEDIA_URL = 'media/'
+       MEDIA_ROOT = BASE_DIR/'media'
+
+  29-> django signals to create user profile-
+       1. create signals.py file
+       2. from django.db.models.signals import post_save
+       3. from django.dispatch import receiver (decorator)
+       4. from .models import User,UserProfile
+       5. create receiver function with receiver as decorator
+
+# SECTION 7: USER REGISTRATION, DJANGO MESSAGES AND ERRORS
+  31-> user registration path-
+          path('accounts/',include("accounts.urls")),
+          path('registerUser/',views.registeruser,name='registeruser')
+
+  32-> template inheritance-
+        1.create base.html
+        2.create home.html : {% extends "base.html" %} , {% load static %} ,{%block content%} {%endblock%}
+  
+  33-> user registration form template-
+       1. create accounts folder in the templates > create registeruser.html
+       2. {% extends "base.html" %} inside registerusr.html
+       3. inside views.py - return render(request,'accounts/registeruser.html')
+
+  34-> user registration form implementation-
+       1. create forms.py inside the app

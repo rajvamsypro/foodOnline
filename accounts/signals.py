@@ -16,8 +16,10 @@ def post_save_create_profile_reciever(sender,instance,created,**kwargs):
         try:
             profile = UserProfile.objects.get(user=instance)
             profile.save()
+            print('we are here')
            
         except Exception:
+            print('here too')
             # create the user profile if not exist
             UserProfile.objects.create(user=instance)
             print('Profile was not existed, but we created one')
